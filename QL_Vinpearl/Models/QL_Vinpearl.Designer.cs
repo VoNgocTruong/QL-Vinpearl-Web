@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\QL_Vinpearl\QL_Vinpearl\Models\QL_Vinpearl.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\Hoc ki 2 - nam 3\Phat trien ung dung web\project\QL_Vinpearl\QL_Vinpearl\Models\QL_Vinpearl.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -153,11 +153,21 @@
     <Compile Include="Areas\Admin\Controllers\LoaiNhanViensController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanViensController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PermissionErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\SoCasController.cs" />
     <Compile Include="Areas\Admin\Controllers\VesController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\DICHVUController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KHACHHANGController.cs" />
+    <Compile Include="Controllers\LOAIDVController.cs" />
+    <Compile Include="Controllers\LoginKhachHangController.cs" />
+    <Compile Include="Controllers\ResetPasswordController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CHUCNANG.cs">
+      <DependentUpon>QL_Vinpearl.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CTHD.cs">
       <DependentUpon>QL_Vinpearl.tt</DependentUpon>
@@ -178,7 +188,12 @@
       <DependentUpon>QL_Vinpearl.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginAdminModel.cs" />
+    <Compile Include="Models\LoginKhachHangModel.cs" />
+    <Compile Include="Models\MailInfo.cs" />
     <Compile Include="Models\NHANVIEN.cs">
+      <DependentUpon>QL_Vinpearl.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PHANQUYEN.cs">
       <DependentUpon>QL_Vinpearl.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\QL_Vinpearl.Context.cs">
@@ -196,9 +211,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QL_Vinpearl.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\QUANLY.cs">
-      <DependentUpon>QL_Vinpearl.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Models\SOCA.cs">
       <DependentUpon>QL_Vinpearl.tt</DependentUpon>
     </Compile>
@@ -215,6 +228,9 @@
     <Content Include="Content\css\adminPageStyle.css" />
     <Content Include="Content\css\detailUser.css" />
     <Content Include="Content\css\loginAdminPage.css" />
+    <Content Include="Content\css\loginUser.css" />
+    <Content Include="Content\css\registerUser .css" />
+    <Content Include="Content\css\styleAdmin.css" />
     <Content Include="Content\img\avatar.svg" />
     <Content Include="Content\img\bg.svg" />
     <Content Include="Content\img\wave.png" />
@@ -291,6 +307,7 @@
     <Content Include="Areas\Admin\Views\SoCas\Details.cshtml" />
     <Content Include="Areas\Admin\Views\SoCas\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SoCas\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PermissionError\NotAllowPermission.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -319,6 +336,22 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\DICHVU\Details.cshtml" />
+    <Content Include="Views\DICHVU\Index.cshtml" />
+    <Content Include="Views\LOAIDV\Details.cshtml" />
+    <Content Include="Views\LOAIDV\Edit.cshtml" />
+    <Content Include="Views\LOAIDV\Index.cshtml" />
+    <Content Include="Views\DICHVU\TimKiem.cshtml" />
+    <Content Include="Views\LOAIDV\DanhSachTheoLoaiDV.cshtml" />
+    <Content Include="Views\LoginKhachHang\Login.cshtml" />
+    <Content Include="Views\LoginKhachHang\Register.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\ResetPassword\SendMail.cshtml" />
+    <Content Include="Views\ResetPassword\Index.cshtml" />
+    <Content Include="Views\KHACHHANG\Details.cshtml" />
+    <Content Include="Views\KHACHHANG\Edit.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -18,6 +18,7 @@ namespace QL_Vinpearl.Models
         public LOAINV()
         {
             this.NHANVIEN = new HashSet<NHANVIEN>();
+            this.PHANQUYEN = new HashSet<PHANQUYEN>();
         }
     
         public string maLoaiNV { get; set; }
@@ -26,5 +27,7 @@ namespace QL_Vinpearl.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NHANVIEN> NHANVIEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHANQUYEN> PHANQUYEN { get; set; }
     }
 }

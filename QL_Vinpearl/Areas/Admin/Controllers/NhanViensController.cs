@@ -17,16 +17,36 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
         private QL_VinpearlEntities db = new QL_VinpearlEntities();
 
         // GET: Admin/NhanViens
-        public ActionResult Index()
+        // Kiểm tra quyền của nhân viên
+        public bool CheckPermission(string maChucNang)
         {
+            if (Session["maLNV"] == null) Response.Redirect("~/Admin/Login/Index");
+			var userSession = Session["maLNV"].ToString();
+			var count = db.PHANQUYEN.Count(m => m.maLoaiNV == userSession && m.maChucNang == maChucNang);
+			if (count == 0)
+            {
+                return false;
+            }
+            return true;
+		}
+		public ActionResult Index()
+        {
+            if (CheckPermission("CN01") == false)
+            {
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
             var nHANVIEN = db.NHANVIEN.Include(n => n.LOAINV);
-            return View(nHANVIEN.ToList());
+			return View(nHANVIEN.ToList());
         }
 
         // GET: Admin/NhanViens/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+			if (CheckPermission("CN01") == false)
+			{
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -47,6 +67,10 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
 		// GET: Admin/NhanViens/Create
 		public ActionResult Create()
         {
+			if (CheckPermission("CN02") == false)
+			{
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
 			ViewBag.MaNV = LayMaNV();
 			ViewBag.maLoaiNV = new SelectList(db.LOAINV, "maLoaiNV", "tenLoai");
             return View();
@@ -79,7 +103,11 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
         // GET: Admin/NhanViens/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+			if (CheckPermission("CN03") == false)
+			{
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -120,7 +148,11 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
         // GET: Admin/NhanViens/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+			if (CheckPermission("CN04") == false)
+			{
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

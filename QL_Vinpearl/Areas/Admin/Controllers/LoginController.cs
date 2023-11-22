@@ -17,22 +17,29 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
 		}
 		public ActionResult Login(LoginAdminModel model)
 		{
-			// query vào bảng quản lý và check các điều kiện.
-			var user = db.QUANLY.SingleOrDefault(ql => ql.email == model.Email);
+			// query vào bảng NV và check các điều kiện.
+			var user = (from nv in db.NHANVIEN
+						join lnv in db.LOAINV on nv.maLoaiNV equals lnv.maLoaiNV
+						where nv.email == model.Email
+						select new
+						{
+							NhanVien = nv,
+							LoaiNhanVien = lnv
+						}).SingleOrDefault();
+
 			if (user == null)
 			{
 				ModelState.AddModelError("", "Tài khoản không tồn tại!");
 			}
-			else if (user.matKhau == model.MKhau)
+			else if (user.NhanVien.matKhau == model.MKhau)
 			{
 				// tạo session để lưu dữ liệu trong phiên làm việc
-				string tenQuanLy = user.tenQL;
-				Session.Add("TaiKhoan", model.Email);
-				Session.Add("MatKhau", model.MKhau);
-				Session.Add("Username", tenQuanLy);
+				Session.Add("Email", model.Email);
+				Session.Add("TenTaiKhoan", user.NhanVien.hoTenNV);
+				Session.Add("maLNV", user.LoaiNhanVien.maLoaiNV);
 				return RedirectToAction("Index", "Dashboard");
 			}
-			else if (user.matKhau != model.MKhau)
+			else if (user.NhanVien.matKhau != model.MKhau)
 			{
 				ModelState.AddModelError("", "Mật khẩu không hợp lệ!");
 			}
@@ -45,9 +52,9 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
 		public ActionResult Logout()
 		{
 			// destroy session
-			Session["TaiKhoan"] = null;
-			Session["MatKhau"] = null;
-			Session["Username"] = null;
+			Session["Email"] = null;
+			Session["TenTaiKhoan"] = null;
+			Session["maLNV"] = null;
 			return RedirectToAction("Index", "Login");
 		}
 	}

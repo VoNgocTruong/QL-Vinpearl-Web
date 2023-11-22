@@ -17,16 +17,36 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
     {
         private QL_VinpearlEntities db = new QL_VinpearlEntities();
 
-        // GET: Admin/KhachHangs
-        public ActionResult Index()
+		// Kiểm tra quyền của nhân viên
+		public bool CheckPermission(string maChucNang)
+		{
+			if (Session["maLNV"] == null) Response.Redirect("~/Admin/Login/Index");
+			var userSession = Session["maLNV"].ToString();
+			var count = db.PHANQUYEN.Count(m => m.maLoaiNV == userSession && m.maChucNang == maChucNang);
+			if (count == 0)
+			{
+				return false;
+			}
+			return true;
+		}
+		// GET: Admin/KhachHangs
+		public ActionResult Index()
         {
-            return View(db.KHACHHANG.ToList());
+			if (CheckPermission("CN01") == false)
+			{
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
+			return View(db.KHACHHANG.ToList());
         }
 
         // GET: Admin/KhachHangs/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+			if (CheckPermission("CN01") == false)
+			{
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -50,6 +70,10 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
 		}
 		public ActionResult Create()
         {
+			if (CheckPermission("CN02") == false)
+			{
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
 			ViewBag.MaKH = LayMaKH();
 			return View();
         }
@@ -59,7 +83,7 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "maKH,hoTenKH,SDT,diaChi,ngaySinh,gioiTinh,email,matKhau,anh")] KHACHHANG kHACHHANG)
+        public ActionResult Create([Bind(Include = "maKH,hoTenKH,SDT,diaChi,ngaySinh,gioiTinh,email,matKhau,anh,ResetPasswordCode,ResetPasswordCodeExpiration")] KHACHHANG kHACHHANG)
         {
 			var imgUser = Request.Files["Avatar"];
 			string postedFileName = System.IO.Path.GetFileName(imgUser.FileName);
@@ -69,6 +93,8 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
             {
                 kHACHHANG.maKH = LayMaKH();
                 kHACHHANG.anh = postedFileName;
+				kHACHHANG.ResetPasswordCode = null;
+				kHACHHANG.ResetPasswordCodeExpiration = null;
                 db.KHACHHANG.Add(kHACHHANG);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -80,7 +106,11 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
         // GET: Admin/KhachHangs/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+			if (CheckPermission("CN03") == false)
+			{
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -97,7 +127,7 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "maKH,hoTenKH,SDT,diaChi,ngaySinh,gioiTinh,email,matKhau,anh")] KHACHHANG kHACHHANG)
+        public ActionResult Edit([Bind(Include = "maKH,hoTenKH,SDT,diaChi,ngaySinh,gioiTinh,email,matKhau,anh, ResetPasswordCode, ResetPasswordCodeExpiration")] KHACHHANG kHACHHANG)
         {
 			var imgUser = Request.Files["Avatar"];
 			try
@@ -119,7 +149,11 @@ namespace QL_Vinpearl.Areas.Admin.Controllers
         // GET: Admin/KhachHangs/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+			if (CheckPermission("CN04") == false)
+			{
+				Response.Redirect("~/Admin/PermissionError/NotAllowPermission");
+			}
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

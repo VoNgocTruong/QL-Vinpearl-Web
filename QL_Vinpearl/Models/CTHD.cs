@@ -19,7 +19,7 @@ namespace QL_Vinpearl.Models
         public Nullable<int> soLuong { get; set; }
         public Nullable<decimal> giaTien { get; set; }
     
-        public virtual VE VE { get; set; }
         public virtual HOADON HOADON { get; set; }
+        public virtual VE VE { get; set; }
     }
 }

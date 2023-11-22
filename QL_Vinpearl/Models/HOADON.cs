@@ -11,8 +11,7 @@ namespace QL_Vinpearl.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class HOADON
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,14 +23,13 @@ namespace QL_Vinpearl.Models
         public string maHD { get; set; }
         public string maKH { get; set; }
         public string maNV { get; set; }
-		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-		public Nullable<System.DateTime> ngayThanhToan { get; set; }
+        public Nullable<System.DateTime> ngayThanhToan { get; set; }
         public string SDT { get; set; }
         public string email { get; set; }
     
-        public virtual KHACHHANG KHACHHANG { get; set; }
-        public virtual NHANVIEN NHANVIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHD> CTHD { get; set; }
+        public virtual KHACHHANG KHACHHANG { get; set; }
+        public virtual NHANVIEN NHANVIEN { get; set; }
     }
 }

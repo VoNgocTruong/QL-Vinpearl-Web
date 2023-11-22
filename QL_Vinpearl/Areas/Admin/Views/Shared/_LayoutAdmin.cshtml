@@ -1,8 +1,8 @@
 ﻿@{
-	if (Session["TaiKhoan"] != null)
+	if (Session["Email"] != null)
 	{
-		string Email = Session["TaiKhoan"].ToString();
-		string Name = Session["Username"].ToString();
+		string Email = Session["Email"].ToString();
+		string Name = Session["TenTaiKhoan"].ToString();
 		ViewBag.Email = Email;
 		ViewBag.Name = Name;
 	}

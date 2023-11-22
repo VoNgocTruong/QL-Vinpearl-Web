@@ -26,13 +26,14 @@ namespace QL_Vinpearl.Models
         }
     
         public virtual DbSet<CTHD> CTHD { get; set; }
+        public virtual DbSet<CHUCNANG> CHUCNANG { get; set; }
         public virtual DbSet<DICHVU> DICHVU { get; set; }
         public virtual DbSet<HOADON> HOADON { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANG { get; set; }
         public virtual DbSet<LOAIDV> LOAIDV { get; set; }
         public virtual DbSet<LOAINV> LOAINV { get; set; }
         public virtual DbSet<NHANVIEN> NHANVIEN { get; set; }
-        public virtual DbSet<QUANLY> QUANLY { get; set; }
+        public virtual DbSet<PHANQUYEN> PHANQUYEN { get; set; }
         public virtual DbSet<SOCA> SOCA { get; set; }
         public virtual DbSet<VE> VE { get; set; }
     }
